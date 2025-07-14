@@ -741,6 +741,8 @@ extract_scope(TokenMap, Opts) ->
     case maps:get(<<"scope">>, TokenMap, oidcc_scope:scopes_to_bin(Scopes)) of
         ScopeBinary when is_binary(ScopeBinary) ->
             {ok, oidcc_scope:parse(ScopeBinary)};
+        ScopeList when is_list(ScopeList) ->
+           {ok, ScopeList};
         ScopeOther ->
             {error, {invalid_property, {scope, ScopeOther}}}
     end.
